@@ -7,22 +7,36 @@
 #include <QPainter>
 #include <QGraphicsItem>
 #include <QStyleOption>
+#include <QKeyEvent>
 
-class Player : public QGraphicsItem
+
+class Player : public QObject, public QGraphicsItem
 {
+
+Q_OBJECT
 public:
     Player();
+    virtual ~Player();
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void keyPressEvent(QKeyEvent *event);
     QRectF boundingRect() const;
     QPainterPath shape() const;
 
- private:
-       qreal angle;
-       qreal speed;
 
-signals:
 
 public slots:
+    void move();
+
+ private:
+
+        qreal angle;
+        qreal speed;
+        qreal xpos;
+        qreal ypos;
+
+
+
+
 };
 
 #endif // PLAYER_H
