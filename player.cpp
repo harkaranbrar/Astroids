@@ -4,6 +4,7 @@
 #include <QtCore/qmath.h>
 #include <QObject>
 #include <QGraphicsItem>
+<<<<<<< HEAD
 
 Player::Player()
 {
@@ -12,6 +13,17 @@ Player::Player()
     angle = 0;
     setRotation(angle);
     setPos(50,50);
+=======
+#include "bullet.h"
+
+Player::Player()
+{
+    //xpos = 0;
+    //ypos = 0;
+    //angle = 0;
+    //setRotation(angle);
+    //setPos(50,50);
+>>>>>>> harkaran
 
     QTimer * timer = new QTimer();
     connect(timer,SIGNAL(timeout()),this, SLOT (move()));
@@ -31,6 +43,7 @@ void Player::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 
 void Player::keyPressEvent(QKeyEvent *event) {
 
+<<<<<<< HEAD
 }
 
 void Player::move() {
@@ -39,6 +52,39 @@ void Player::move() {
 
 }
 
+=======
+    //qDebug() << "pressed a key";
+
+    //this can read a key from key board to move the player
+    if (event->key()== Qt::Key_Left){
+        setPos(x()-10,y());
+    }
+    else if (event->key()== Qt::Key_Right){
+        setPos(x()+10,y());
+    }
+    else if (event->key()== Qt::Key_Up){
+        setPos(x(),y()-10);
+    }
+    else if (event->key()== Qt::Key_Down){
+        setPos(x(),y()+10);
+    }
+    //Shoot and create the bullet
+    else if (event->key()== Qt::Key_Space){
+        bullet * bull = new bullet();
+        bull->setPos(x(),y());
+        scene()->addItem(bull);
+
+        //qDebug() << "bullet is created";
+    }
+}
+
+void Player::move() {
+   // ypos += 1;
+    //setPos(xpos, ypos);
+
+}
+
+>>>>>>> harkaran
 QRectF Player::boundingRect() const
 {
     qreal adjust = 0.5;

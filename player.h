@@ -8,6 +8,10 @@
 #include <QGraphicsItem>
 #include <QStyleOption>
 #include <QKeyEvent>
+<<<<<<< HEAD
+=======
+#include <qlabel.h>
+>>>>>>> harkaran
 
 
 class Player : public QObject, public QGraphicsItem
@@ -35,8 +39,11 @@ public slots:
         qreal ypos;
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> harkaran
 };
 
 #endif // PLAYER_H

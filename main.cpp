@@ -12,7 +12,15 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+<<<<<<< HEAD
     MainWindow w;
     w.show();
+=======
+
+    MainWindow w;
+    w.show();
+
+
+>>>>>>> harkaran
     return a.exec();
 }

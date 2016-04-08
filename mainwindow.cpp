@@ -3,15 +3,31 @@
 #include "player.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
+<<<<<<< HEAD
+=======
+#include <QObject>
+#include <QCoreApplication>
+>>>>>>> harkaran
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+<<<<<<< HEAD
     QMenu* fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction("&New",this,SLOT(StartGame()));
     fileMenu->addAction("&Close",this,SLOT(close()));
     // ui->setupUi(this);
+=======
+
+    QMenu* fileMenu = menuBar()->addMenu("&File");
+    fileMenu->addAction("&New",this,SLOT(StartGame()));
+    fileMenu->addAction("&Close",this,SLOT(close()));
+     //ui->setupUi(this);
+
+  //QObject::connect(on_pushButton_clicked, SIGNAL (released()), this, SLOT (StartGame()));
+
+>>>>>>> harkaran
 }
 
 MainWindow::~MainWindow()
@@ -25,8 +41,21 @@ void MainWindow::StartGame() {
 
     scene->addItem(ply);
 
+<<<<<<< HEAD
     QGraphicsView* view = new QGraphicsView(scene);
 
+=======
+
+    //to make a player focusable in scene
+    ply->setFlag(QGraphicsItem::ItemIsFocusable);
+    ply->setFocus();
+
+    QGraphicsView* view = new QGraphicsView(scene);
+
+    //to remove the scrol bar
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+>>>>>>> harkaran
     //view.setRenderHint(QPainter::Antialiasing);
     //view.setCacheMode(QGraphicsView::CacheBackground);
     //view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
@@ -35,7 +64,26 @@ void MainWindow::StartGame() {
     view->resize(1024, 768);
     setCentralWidget(view);
     view->show();
+<<<<<<< HEAD
+=======
+
+    //fixes the size of the window
+    view->setFixedSize(800,600);
+    scene->setSceneRect(0,0,800,600);
+    //play get center in window to get its position
+    ply->setPos(view->width()/2,view->height() - ply->boundingRect().height());
+>>>>>>> harkaran
 }
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+void MainWindow::on_pushButton_clicked()
+{
+
+}
+>>>>>>> harkaran
