@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    player.cpp
+    player.cpp \
+    bullet.cpp
 
 HEADERS  += mainwindow.h \
-    player.h
+    player.h \
+    bullet.h
 
 FORMS    += mainwindow.ui

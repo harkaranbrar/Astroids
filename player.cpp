@@ -4,6 +4,7 @@
 #include <QtCore/qmath.h>
 #include <QObject>
 #include <QGraphicsItem>
+#include "bullet.h"
 
 Player::Player()
 {
@@ -45,6 +46,14 @@ void Player::keyPressEvent(QKeyEvent *event) {
     }
     else if (event->key()== Qt::Key_Down){
         setPos(x(),y()+10);
+    }
+    //Shoot and create the bullet
+    else if (event->key()== Qt::Key_Space){
+        bullet * bull = new bullet();
+        bull->setPos(x(),y());
+        scene()->addItem(bull);
+
+        //qDebug() << "bullet is created";
     }
 }
 

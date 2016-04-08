@@ -35,8 +35,6 @@ public slots:
         qreal xpos;
         qreal ypos;
 
-private:
-QLabel *myLabelText;
 
 };
 
