@@ -9,10 +9,7 @@
 #include <QPainter>
 #include <QGraphicsItem>
 #include <QStyleOption>
-<<<<<<< HEAD
-=======
 #include <QPushButton>
->>>>>>> harkaran
 
 namespace Ui {
 class MainWindow;
@@ -30,19 +27,12 @@ public:
 private:
     Ui::MainWindow *ui;
 
-<<<<<<< HEAD
-public slots:
-    void StartGame();
-
-=======
-
 public slots:
     void StartGame();
     void on_pushButton_clicked();
 
 //private slots:
 //    void on_pushButton_clicked();
->>>>>>> harkaran
 };
 
 #endif // MAINWINDOW_H
