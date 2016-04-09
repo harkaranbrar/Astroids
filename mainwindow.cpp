@@ -62,7 +62,4 @@ void MainWindow::StartGame() {
 
 
 
-void MainWindow::on_pushButton_clicked()
-{
 
-}
