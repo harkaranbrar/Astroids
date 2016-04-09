@@ -35,7 +35,6 @@ public slots:
         qreal xpos;
         qreal ypos;
 
-
 };
 
 #endif // PLAYER_H

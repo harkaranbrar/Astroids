@@ -1,4 +1,5 @@
 #include "bullet.h"
+#include <QtCore/qmath.h>
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QDebug>
@@ -16,7 +17,7 @@ bullet::bullet()
 }
 void bullet::move(){
     //move bullet up
-    setPos(x(),y()-10);
+    setPos(x()+(10*qSin( 0.0174533*rotation() )),y()-(10*qCos( 0.0174533*rotation() )));
     //to delete the bullet from scene
     if (pos().y() +rect().height() < 0){
         scene()->removeItem(this);

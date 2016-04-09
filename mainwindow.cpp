@@ -3,6 +3,7 @@
 #include "player.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
+
 #include <QObject>
 #include <QCoreApplication>
 
@@ -14,9 +15,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QMenu* fileMenu = menuBar()->addMenu("&File");
     fileMenu->addAction("&New",this,SLOT(StartGame()));
     fileMenu->addAction("&Close",this,SLOT(close()));
-     //ui->setupUi(this);
+    // ui->setupUi(this);
 
   //QObject::connect(on_pushButton_clicked, SIGNAL (released()), this, SLOT (StartGame()));
+
 
 }
 
@@ -32,11 +34,11 @@ void MainWindow::StartGame() {
     scene->addItem(ply);
 
 
+    QGraphicsView* view = new QGraphicsView(scene);
+
     //to make a player focusable in scene
     ply->setFlag(QGraphicsItem::ItemIsFocusable);
     ply->setFocus();
-
-    QGraphicsView* view = new QGraphicsView(scene);
 
     //to remove the scrol bar
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -55,6 +57,7 @@ void MainWindow::StartGame() {
     scene->setSceneRect(0,0,800,600);
     //play get center in window to get its position
     ply->setPos(view->width()/2,view->height() - ply->boundingRect().height());
+
 }
 
 
@@ -62,4 +65,9 @@ void MainWindow::StartGame() {
 
 
 
+
+void MainWindow::on_pushButton_clicked()
+{
+
+}
 

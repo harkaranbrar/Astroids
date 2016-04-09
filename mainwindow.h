@@ -27,11 +27,12 @@ public:
 private:
     Ui::MainWindow *ui;
 
-
 public slots:
     void StartGame();
+    void on_pushButton_clicked();
 
-
+//private slots:
+//    void on_pushButton_clicked();
 };
 
 #endif // MAINWINDOW_H
