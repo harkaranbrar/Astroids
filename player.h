@@ -8,6 +8,7 @@
 #include <QGraphicsItem>
 #include <QStyleOption>
 #include <QKeyEvent>
+#include <qlabel.h>
 
 
 class Player : public QObject, public QGraphicsItem
@@ -33,9 +34,6 @@ public slots:
         qreal speed;
         qreal xpos;
         qreal ypos;
-
-
-
 
 };
 
