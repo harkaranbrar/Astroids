@@ -8,8 +8,8 @@
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QGraphicsItem>
-#include <QStyleOption>
 #include <QPushButton>
+//#include <QStyleOption>
 
 namespace Ui {
 class MainWindow;
@@ -27,12 +27,15 @@ public:
 private:
     Ui::MainWindow *ui;
 
+
 public slots:
     void StartGame();
-    void on_pushButton_clicked();
 
-//private slots:
-//    void on_pushButton_clicked();
+private slots:
+    void on_PlayButton_clicked();
+    void on_QuitButton_clicked();
+    void on_New_triggered();
+    void on_Close_triggered();
 };
 
 #endif // MAINWINDOW_H

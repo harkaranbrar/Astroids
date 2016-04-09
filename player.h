@@ -8,7 +8,7 @@
 #include <QGraphicsItem>
 #include <QStyleOption>
 #include <QKeyEvent>
-#include <qlabel.h>
+//#include <qlabel.h>
 
 
 class Player : public QObject, public QGraphicsItem
@@ -27,6 +27,7 @@ public:
 
 public slots:
     void move();
+    //void spawn();
 
  private:
 

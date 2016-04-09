@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QGraphicsItem>
 #include "bullet.h"
+#include "rocks.h"
 
 Player::Player()
 {
@@ -41,14 +42,14 @@ void Player::keyPressEvent(QKeyEvent *event) {
 
     //this can read a key from key board to move the player
     if (event->key()== Qt::Key_Left){
-
         setRotation(rotation() - 10);
+
     }
     else if (event->key()== Qt::Key_Right){
         setRotation(rotation() + 10);
     }
     else if (event->key()== Qt::Key_Up){
-        setPos(x()+(qSin( 0.0174533*rotation() )),y()-(qCos( 0.0174533*rotation() )));
+        setPos(x()+(10*qSin( 0.0174533*rotation() )),y()-(10*qCos( 0.0174533*rotation() )));
     }
     else if (event->key()== Qt::Key_Down){
         //setPos(x(),y()+10);
@@ -78,4 +79,5 @@ QPainterPath Player::shape() const
     path.addRect(-10, -20, 20, 40);
     return path;
 }
+
 
