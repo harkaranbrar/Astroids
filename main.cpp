@@ -3,8 +3,9 @@
 #include <QApplication>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include <QMenuBar>
-#include <QStatusBar>
+#include <QApplication>
+#include <QProgressBar>
+
 
 
 //This is all you need.
@@ -14,8 +15,5 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.show();
-
-
-
     return a.exec();
 }
