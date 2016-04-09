@@ -5,12 +5,13 @@
 #include <QObject>
 #include <QGraphicsItem>
 #include "bullet.h"
+#include "rocks.h"
 
 Player::Player()
 {
     //xpos = 0;
     //ypos = 0;
-    //angle = 0;
+    angle = 0;
     //setRotation(angle);
     //setPos(50,50);
 
@@ -25,42 +26,44 @@ Player::~Player() {
 
 void Player::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) {
     painter->setBrush(Qt::SolidPattern);
-    painter->drawLine(0,0,18,0);
-    painter->drawLine(0,0,9,-25);
-    painter->drawLine(18,0,9,-25);
+    painter->drawLine(-9,12.5,9,12.5);
+    painter->drawLine(-9,12.5,0,-12.5);
+    painter->drawLine(9,12.5,0,-12.5);
+}
+
+void Player::move() {
+
+   // setPos(xpos, ypos);
+
 }
 
 void Player::keyPressEvent(QKeyEvent *event) {
-
     //qDebug() << "pressed a key";
 
     //this can read a key from key board to move the player
     if (event->key()== Qt::Key_Left){
-        setPos(x()-10,y());
+        setRotation(rotation() - 10);
+
     }
     else if (event->key()== Qt::Key_Right){
-        setPos(x()+10,y());
+        setRotation(rotation() + 10);
     }
     else if (event->key()== Qt::Key_Up){
-        setPos(x(),y()-10);
+        setPos(x()+(10*qSin( 0.0174533*rotation() )),y()-(10*qCos( 0.0174533*rotation() )));
     }
     else if (event->key()== Qt::Key_Down){
-        setPos(x(),y()+10);
+        //setPos(x(),y()+10);
     }
     //Shoot and create the bullet
     else if (event->key()== Qt::Key_Space){
+        angle = rotation();
         bullet * bull = new bullet();
         bull->setPos(x(),y());
+        bull->setRotation(angle);
         scene()->addItem(bull);
 
         //qDebug() << "bullet is created";
     }
-}
-
-void Player::move() {
-   // ypos += 1;
-    //setPos(xpos, ypos);
-
 }
 
 QRectF Player::boundingRect() const
@@ -76,4 +79,5 @@ QPainterPath Player::shape() const
     path.addRect(-10, -20, 20, 40);
     return path;
 }
+
 
