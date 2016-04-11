@@ -33,8 +33,8 @@ public slots:
 
         qreal angle;
         qreal speed;
-        qreal xpos;
-        qreal ypos;
+        qreal xvel;
+        qreal yvel;
 
 };
 
