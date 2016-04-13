@@ -9,8 +9,9 @@
 
 Player::Player()
 {
-    //xpos = 0;
-    //ypos = 0;
+
+    xvel = 0;
+    yvel = 0;
     angle = 0;
     //setRotation(angle);
     //setPos(50,50);
@@ -33,7 +34,11 @@ void Player::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 
 void Player::move() {
 
-   // setPos(xpos, ypos);
+    if(xvel <= -5.0) { xvel = -5.0; }
+    if(xvel >= 5.0) { xvel = 5.0; }
+    if(yvel <= -5.0) { yvel = -5.0; }
+    if(yvel >= 5.0) { yvel = 5.0; }
+   setPos(x()+xvel, y()+yvel);
 
 }
 
@@ -49,7 +54,11 @@ void Player::keyPressEvent(QKeyEvent *event) {
         setRotation(rotation() + 10);
     }
     else if (event->key()== Qt::Key_Up){
-        setPos(x()+(10*qSin( 0.0174533*rotation() )),y()-(10*qCos( 0.0174533*rotation() )));
+        // setPos(x()+(10*qSin( 0.0174533*rotation() )),y()-(10*qCos( 0.0174533*rotation() )));
+        xvel += 0.25*(qSin( 0.0174533*rotation() ));
+        yvel += -0.25*(qCos( 0.0174533*rotation() ));
+
+
     }
     else if (event->key()== Qt::Key_Down){
         //setPos(x(),y()+10);

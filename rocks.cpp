@@ -24,12 +24,15 @@ rocks::rocks():QObject()
 void rocks::move()
 {
     setPos(x(), y()+5);
-    //to delete the bullet from scene
-//    if (pos().y() +rect().height() < 0){
+   // to delete the rocks from scene
+//    if (pos().y() +rect().height() >650){
 //        scene()->removeItem(this);
 //        delete this;
-//        qDebug() << "bullet deleted upwards";
+//        qDebug() << "rocks deleted downwards";
+
+
 //    }
+
 }
 void rocks::spawn(){
     //create a rock

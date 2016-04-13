@@ -3,6 +3,9 @@
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QDebug>
+#include <QGraphicsItem>
+#include <QList>
+#include "rocks.h"
 //#include <iostream>
 //using namespace std;
 
@@ -18,6 +21,31 @@ bullet::bullet() :QObject()
         timer->start(50);
 }
 void bullet::move(){
+
+
+    //bullet stikes and rocks destroyed
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    for (int i = 0, n = colliding_items.size(); i<n; i++){
+        if (typeid(*(colliding_items[i])) == typeid (rocks))
+        {
+
+            //bullet and rocks removed from scene
+            scene()->removeItem(colliding_items[i]);
+            scene()->removeItem(this);
+            //bullet and rocks deleted from memory
+            delete colliding_items[i];
+            delete this;
+            qDebug() << "bullet stikes and rocks destroyed ";
+            return;
+
+
+}
+
+    }
+
+
+
+
     //move bullet in all direction left right up down
     setPos(x()+(10*qSin( 0.0174533*rotation() )),y()-(10*qCos( 0.0174533*rotation() )));
     //to delete the bullet from scene

@@ -66,17 +66,17 @@
      <string>Quit</string>
     </property>
    </widget>
-   <widget class="QProgressBar" name="progressBar">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>60</x>
+      <x>130</x>
       <y>250</y>
-      <width>361</width>
-      <height>41</height>
+      <width>271</width>
+      <height>61</height>
      </rect>
     </property>
-    <property name="value">
-     <number>24</number>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt;&quot;&gt;Click on ship to start&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
   </widget>
