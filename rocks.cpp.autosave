@@ -7,7 +7,7 @@
 #include "mainwindow.h"
 
 
-extern MainWindow * game; //Global object
+extern MainWindow * game; // Global object
 
 //================================== Rocks Constructor =========================================//
 

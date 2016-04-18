@@ -16,11 +16,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     player.cpp \
     bullet.cpp \
-    rocks.cpp
+    rocks.cpp \
+    Score.cpp \
+    Health.cpp
 
 HEADERS  += mainwindow.h \
     player.h \
     bullet.h \
-    rocks.h
+    rocks.h \
+    Score.h \
+    Health.h
 
 FORMS    += mainwindow.ui
