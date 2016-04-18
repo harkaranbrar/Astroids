@@ -8,69 +8,89 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <rocks.h>
+
 //==========================Constructor to Create the window==============================//
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
-
-//    QMenu* fileMenu = menuBar()->addMenu("&File");
-//    fileMenu->addAction("&New",this,SLOT(StartGame()));
-//    fileMenu->addAction("&Close",this,SLOT(close()));
-      ui->setupUi(this);
-
+    this->setFixedSize(800,600);
+     ui->setupUi(this);
 }
 //==========================Destructor to delete the window==============================//
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+//========================== Mouse press events ==============================//
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+//    ply->setFocus();
+//    qDebug() << "in focus";
+//    return;
+}
+
+//==========================Key Press events==============================//
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+//==============Player gets a focus by key press ========================//
+            ply->setFocus();
+            qDebug() << "in focus";
+            return;
+}
+
 //==========================Start a new game=============================================//
 void MainWindow::StartGame() {
-   //==========================Create a Player and added to Scene========================//
-    QGraphicsScene* scene = new QGraphicsScene();
-    Player *ply = new Player;
-    scene->addItem(ply);
-    QGraphicsView* view = new QGraphicsView(scene);
+   //==========================Create a Scene========================//
+    scene = new QGraphicsScene();
 
-    //==================to make a player focusable in scene==============================//
+ //============Create a Player and make it Focusable and added to scene==================//
+    ply = new Player;
     ply->setFlag(QGraphicsItem::ItemIsFocusable);
-    ply->setFocus();
+    ply->QGraphicsItem::setFocus();
+    scene->addItem(ply);
     //===================================================================================//
 
+//============Create a Score ,Health and added to scene==================//
+        score = new Score();
+        scene->addItem(score);
+        health = new Health();
+        health->setPos(health->x(),health->y()+25); //set the positon of the health text
+        scene->addItem(health);
 
+//===================== Create a View and Set up its size ===============================//
+    view = new QGraphicsView(scene);
     //=============to remove the scrol bar=============================//
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     //==================================================================//
-
-    //view.setRenderHint(QPainter::Antialiasing);
-    //view.setCacheMode(QGraphicsView::CacheBackground);
-    //view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    //view.setDragMode(QGraphicsView::ScrollHandDrag);
-    view->setWindowTitle(QT_TRANSLATE_NOOP(QGraphicsView, "Asteroids"));
-    view->resize(1024, 768);
+    view->setFixedSize(800,600);
     setCentralWidget(view);
+    view->setFocus();
     view->show();
 
-    //================fixes the size of the window==================//
-    view->setFixedSize(800,600);
+ //================fixes the size of the Scene window==================//
+
     scene->setSceneRect(0,0,800,600);
-    //==============================================================//
 
-    //=================player get center in window to get its position==================//
-    ply->setPos(view->width()/2,view->height() - ply->boundingRect().height());
-    //==================================================================================//
+ //==============================================================//
+
+ //=================player get center in window to get its position==================//
+
+    ply->setPos(view->width()/2,view->height()/2);
+
+ //==================================================================================//
 
 
-        //===========================Create a Rock add to scene===========================//
+ //===========================Create a Rock add to scene===========================//
         rocks *rock = new rocks;
         scene->addItem(rock);
         QTimer * timer = new QTimer();
         QObject::connect(timer,SIGNAL(timeout()),rock,SLOT(spawn()));
         timer->start(2000);
-        //================================================================================//
+//================================================================================//
 
 }
 

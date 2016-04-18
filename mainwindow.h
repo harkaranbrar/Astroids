@@ -2,14 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMenuBar>
-#include <QStatusBar>
 #include <QGraphicsView>
 #include <QGraphicsScene>
-#include <QPainter>
 #include <QGraphicsItem>
-#include <QPushButton>
-//#include <QStyleOption>
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include "player.h"
+#include "Score.h"
+#include "Health.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +23,15 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void mousePressEvent(QMouseEvent *event);
+    void keyPressEvent(QKeyEvent *event);
+    //void StartGame(QWidget *parent=0);
+    QGraphicsScene* scene ;
+    QGraphicsView* view;
+    Player *ply ;
+    Score * score;
+    Health * health;
+
 
 private:
     Ui::MainWindow *ui;

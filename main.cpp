@@ -7,13 +7,13 @@
 #include <QProgressBar>
 
 
+ MainWindow * game; // Global object
 
-//This is all you need.
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    MainWindow w;
-    w.show();
+    game = new MainWindow();//Global object = main window
+    game-> show(); // show game means show main window
     return a.exec();
 }
