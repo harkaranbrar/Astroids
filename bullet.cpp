@@ -33,33 +33,6 @@ bullet::bullet() :QObject()
 void bullet::move(){
 
 
-    //================= Bullet Strikes and destroyed =================//
-
-    QList<QGraphicsItem *> colliding_items = collidingItems();
-    for (int i = 0, n = colliding_items.size(); i<n; i++){
-        if (typeid(*(colliding_items[i])) == typeid (rocks))
-        {
-    //==========================Increase the Score =======================//
-
-         game->score->Score::increase();
-
-    //====================================================================//
-
-
-    //========== Bullet and rocks removed from scene==============//
-
-            scene()->removeItem(colliding_items[i]);
-            scene()->removeItem(this);
-
-     //========== Bullet and rocks removed from memory ============//
-
-            delete colliding_items[i];
-            delete this;
-            //qDebug() << "bullet stikes and rocks destroyed ";
-            return;
-}
-    }
-
     //=============================Movement of Bullet ================================//
 
     setPos(x()+(10*qSin( 0.0174533*rotation() )),y()-(10*qCos( 0.0174533*rotation() )));

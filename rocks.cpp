@@ -4,10 +4,13 @@
 #include <QGraphicsScene>
 #include <QDebug>
 #include <stdlib.h>
+#include <typeinfo>
+#include "bullet.h"
+#include "player.h"
 #include "mainwindow.h"
 
 
-extern MainWindow * game; //Global object
+extern MainWindow * game; // Global object
 
 //================================== Rocks Constructor =========================================//
 
@@ -46,18 +49,45 @@ void rocks::move()
 
     setPos(x(), y()+5);
 
-//================== check to remove the rock ==========================//
+//================== Rocks collides with ship and remove ==========================//
 
-    if (pos().y() > 600)
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+    for (int i = 0, n = colliding_items.size(); i<n; i++){
+        if (typeid(*(colliding_items[i])) == typeid (Player))
         {
-
-            game->health->decrease(); //decrease the health
+            //==========================Decrease the Health =======================//
+            game->health->decrease(); // player health decrease
             scene()->removeItem(this); //remove from the scene
-            delete this; //delete the rocks
+             delete this;              //delete the rocks
+             return;
 
-        }
+    }
+    }
+
+//================== Rocks collides with bullet and remove ==========================//
+  for (int i = 0, n = colliding_items.size(); i<n; i++){
+      if (typeid(*(colliding_items[i])) == typeid (bullet))
+      {
+        //==========================Increase the Score =======================//
+
+                 game->score->Score::increase();
+
+             //========== Bullet and rocks removed from scene==============//
+
+                      scene()->removeItem(colliding_items[i]);
+                      //this->split();
+                      scene()->removeItem(this);
+
+               //========== Bullet and rocks removed from memory ============//
+
+                      delete colliding_items[i];
+                      delete this;
+                      //qDebug() << "bullet stikes and rocks destroyed ";
+                      return;
+          }
 
 
+  }
 }
 
 //================================== Spawn and create a rocks=========================================//
