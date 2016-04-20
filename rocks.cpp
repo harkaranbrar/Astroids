@@ -28,7 +28,7 @@ rocks::rocks():QObject()
 
 //================== Draw the Rocks ===========================//
 
-    setRect(0,0,50,50);
+    setRect(0,0,20,50);
 
 //============= Create a timer or Connect the rocks============//
 

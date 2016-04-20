@@ -16,8 +16,9 @@ GAME PLAY 👍
 
 Game starts with ship in the center of the window Rocks are dropping from the upwards. 
 Fire bullet with space bar to destroy the rocks and getting score displayed on screen.
-If you missed asteroids your health will you by one. 
-You can move your player to anywhere on screen it loop around the screen if you my go off from the window.
+If asteroids hit your ship, then your health will loose by one. 
+You can move your player to anywhere on screen it loop around the screen.
+
 
 
 ISSUES 👎 
@@ -33,3 +34,5 @@ IN PROGRESS 🎱
 4. Good main menu 
 5 . Many more 
 
+
+Team members - Jordan,David,Darin and Harkaran
