@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>Ast.png</file>
+        <file>background.jpg</file>
+        <file>Rock.png</file>
+        <file>Ship.png</file>
+        <file>backg.jpg</file>
+        <file>Rock1.png</file>
+        <file>Rock2.png</file>
+        <file>bullet1.png</file>
+        <file>Group.png</file>
+    </qresource>
+    <qresource prefix="/sounds"/>
+</RCC>

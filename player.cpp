@@ -9,7 +9,7 @@
 
 //================================== Player Constructor =========================================//
 
-Player::Player()
+Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
 
     xvel = 0;
@@ -21,6 +21,9 @@ Player::Player()
     QTimer * timer = new QTimer();
     connect(timer,SIGNAL(timeout()),this, SLOT (move()));
     timer->start(33.33);
+
+    setPixmap(QPixmap(":/img/Ship.png"));
+
 }
 
 //==============================================================================================//
@@ -33,12 +36,7 @@ Player::~Player() {
 
 //==============================================================================================//
 
-void Player::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) {
-    painter->setBrush(Qt::SolidPattern);
-    painter->drawLine(-9,12.5,9,12.5);
-    painter->drawLine(-9,12.5,0,-12.5);
-    painter->drawLine(9,12.5,0,-12.5);
-}
+
 
 //================================ Player Move Function ==================================//
 
@@ -66,62 +64,79 @@ void Player::move() {
 //================================== Key press Event funtion ========================================//
 //=========================Read a key from key board to move the player======================//
 
-void Player::keyPressEvent(QKeyEvent *event) {
+void Player::keys() {
 
-//============================== player change angle to left ==============================//
+    foreach(Qt::Key k, keysPressed)
+    {
+       switch(k)
+       {
+       case Qt::Key_Up:
+       //case Qt::Key_W:
+       {
+           xvel += 0.05*(qSin( 0.0174533*rotation() ));
+           yvel += -0.05*(qCos( 0.0174533*rotation() ));
+           //qDebug() << "key up";
+           break;
+       }
 
 
-    if (event->key()== Qt::Key_Left){
-        setRotation(rotation() - 10);
 
-    }
+       case Qt::Key_Left:
+     //  case Qt::Key_A:
+       {
+            setRotation(rotation() - 0.09);
+            break;
+       }
 
- //============================== player change angle to Right ==============================//
+       case Qt::Key_Right:
+      // case Qt::Key_D:
+       {
+           setRotation(rotation() +0.09);
+           break;
+       }
 
-    else if (event->key()== Qt::Key_Right){
-        setRotation(rotation() + 10);
-    }
 
-//============================== player move Forward ===================================//
+       case Qt::Key_Space:
+       {
+           // create a bullet
+           angle = rotation();
+           bullet * bull = new bullet(); // create a new bullet
+           bull->setPos(x()+20,y()+20); // position of bullet
+           bull->QGraphicsItem::setTransformOriginPoint(10,10);
+           bull->setRotation(angle); //set angle of bullet
+           scene()->addItem(bull); //added to scene
+           fireRate.start(333, this);
+           qDebug() << "bullet is created";
 
-    else if (event->key()== Qt::Key_Up){
-        // setPos(x()+(10*qSin( 0.0174533*rotation() )),y()-(10*qCos( 0.0174533*rotation() )));
-        xvel += 0.25*(qSin( 0.0174533*rotation() ));
-        yvel += -0.25*(qCos( 0.0174533*rotation() ));
-    }
-
- //============================== player move Backward ===================================//
-
-    else if (event->key()== Qt::Key_Down){
-        //setPos(x(),y()+10);
-    }
-
-// ============================== Create and shoot bullet ==================================//
-
-    else if (event->key()== Qt::Key_Space){
-        angle = rotation();
-        bullet * bull = new bullet(); // create a new bullet
-        bull->setPos(x(),y()); // position of bullet
-        bull->setRotation(angle); //set angle of bullet
-        scene()->addItem(bull); //added to scene
-        //qDebug() << "bullet is created";
+           break;
+           }
+        default:
+       {
+           // prevents 430 warnings
+           break;
+       }
+       }
     }
 }
 
-//==========================================================================================//
 
-QRectF Player::boundingRect() const
+
+
+void Player::keyPressEvent(QKeyEvent *event)
 {
-    qreal adjust = 0.5;
-    return QRectF(-18 - adjust, -22 - adjust,
-                  36 + adjust, 60 + adjust);
+    keysPressed += (Qt::Key)event->key();
+    QTimer * timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(keys()));
+
+    timer->start(50);
+
 }
 
-QPainterPath Player::shape() const
+
+void Player::keyReleaseEvent(QKeyEvent *event)
 {
-    QPainterPath path;
-    path.addRect(-10, -20, 20, 40);
-    return path;
+    keysPressed -= (Qt::Key)event->key();
+    QTimer * timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(keys()));
+    timer->start(50);
 }
-
-

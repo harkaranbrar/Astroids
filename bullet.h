@@ -5,16 +5,21 @@
 #include <QObject>
 #include <QWidget>
 #include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 
-class bullet: public QObject, public QGraphicsRectItem
+
+class bullet: public QObject, public QGraphicsPixmapItem
 {
     //to receive a signals macro
     Q_OBJECT
 public:
-    bullet();
+    bullet(QGraphicsItem * parent=0);
 public slots:
     void move();
 
+private:
+
+    qreal angle;
 
 
 };

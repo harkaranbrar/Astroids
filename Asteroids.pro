@@ -28,3 +28,6 @@ HEADERS  += mainwindow.h \
     Health.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    resource.qrc

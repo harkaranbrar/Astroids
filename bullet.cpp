@@ -12,19 +12,20 @@ extern MainWindow * game; // Global
 
 //============================================================================================//
 
-bullet::bullet() :QObject()
+bullet::bullet(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent)
 {
 
     //==========================Draw the Bullet =======================//
 
-        setRect (0,0,2,10);
+        setPixmap(QPixmap(":/img/bullet1.png"));
 
     //================ Create a Timer and Connect the Bullet =============//
 
         QTimer * timer = new QTimer();
         connect(timer,SIGNAL(timeout()),this,SLOT(move()));
 
-        timer->start(50);
+        timer->start(33.33);
+        //qDebug() << "bullet is created";
 }
 
 //============================ Bullet move Function ===========================================//
@@ -41,7 +42,7 @@ void bullet::move(){
 
     //=====Delete the bullet from Upwards=====//
 
-    if (pos().y() +rect().height() < 0){
+    if (pos().y()  < 0){
         scene()->removeItem(this);
         delete this;
         //qDebug() << "bullet deleted upwards";
@@ -49,7 +50,7 @@ void bullet::move(){
 
     //=====Delete the bullet from downwards=====//
 
-    else if (pos().y() +rect().height() >650)  {
+    else if (pos().y()  >650)  {
         scene()->removeItem(this);
         delete this;
         //qDebug() << "bullet deleted downwards";
@@ -57,7 +58,7 @@ void bullet::move(){
 
     //=====Delete the bullet from left=====//
 
-    else if (pos().x() +rect().height() < 0)  {
+    else if (pos().x()  < 0)  {
         scene()->removeItem(this);
         delete this;
         //qDebug() << "bullet deleted left";
@@ -65,7 +66,7 @@ void bullet::move(){
 
     //=====Delete the bullet from right=====//
 
-    else if (pos().x() +rect().height() >850)  {
+    else if (pos().x()  >850)  {
         scene()->removeItem(this);
         delete this;
         //qDebug() << "bullet deleted right";

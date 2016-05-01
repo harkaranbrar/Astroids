@@ -26,9 +26,9 @@ MainWindow::~MainWindow()
 //========================== Mouse press events ==============================//
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
-//    ply->setFocus();
+    ply->setFocus();
 //    qDebug() << "in focus";
-//    return;
+    return;
 }
 
 //==========================Key Press events==============================//
@@ -45,11 +45,17 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::StartGame() {
    //==========================Create a Scene========================//
     scene = new QGraphicsScene();
+    scene->setBackgroundBrush(QBrush(QImage(":/img/backg.jpg")));
 
  //============Create a Player and make it Focusable and added to scene==================//
     ply = new Player;
     ply->setFlag(QGraphicsItem::ItemIsFocusable);
     ply->QGraphicsItem::setFocus();
+   // for(int i=0; i<5; i++)
+   // {
+    //    rocks *rock = new rocks;
+    //    scene->addItem(rock);
+   // }
     scene->addItem(ply);
     //===================================================================================//
 
@@ -80,6 +86,8 @@ void MainWindow::StartGame() {
  //=================player get center in window to get its position==================//
 
     ply->setPos(view->width()/2,view->height()/2);
+    ply->QGraphicsItem::setTransformOriginPoint(30,30);
+    ply->setTransformationMode(Qt::SmoothTransformation);
 
  //==================================================================================//
 
@@ -87,12 +95,16 @@ void MainWindow::StartGame() {
  //===========================Create a Rock add to scene===========================//
         rocks *rock = new rocks;
         scene->addItem(rock);
+        rocks *rock1 = new rocks;
         QTimer * timer = new QTimer();
-        QObject::connect(timer,SIGNAL(timeout()),rock,SLOT(spawn()));
-        timer->start(2000);
+        QObject::connect(timer,SIGNAL(timeout()),rock1,SLOT(spawn()));
+        timer->start(1000);
+        scene->addItem(rock1);
+
 //================================================================================//
 
 }
+
 
 
 
