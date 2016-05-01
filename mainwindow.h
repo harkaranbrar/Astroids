@@ -10,6 +10,8 @@
 #include "player.h"
 #include "Score.h"
 #include "Health.h"
+#include "rocks.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -35,10 +37,15 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QMediaPlayer * music;
+     rocks *rock1;
+      rocks *rock;
 
 
 public slots:
     void StartGame();
+    void reset();
+    void removeItem();
 
 private slots:
     void on_PlayButton_clicked();

@@ -17,11 +17,6 @@ public:
 public slots:
     void move();
 
-private:
-
-    qreal angle;
-
-
 };
 
 #endif // BULLET_H

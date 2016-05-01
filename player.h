@@ -8,7 +8,6 @@
 #include <QGraphicsItem>
 #include <QStyleOption>
 #include <QKeyEvent>
-#include <Qset>
 #include <QTimer>
 #include <QMediaPlayer>
 #include <QGraphicsPixmapItem>
@@ -25,25 +24,17 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
 
-
-
-
 public slots:
     void move();
-    //void spawn();
     void keys();
 
  private:
+    QMediaPlayer * bulletsound;
+    QSet<Qt::Key> keysPressed;
+        qreal angle = 0;
+        qreal xvel  = 0;
+        qreal yvel  = 0;
 
-        qreal angle;
-        qreal speed;
-        qreal xvel;
-        qreal yvel;
-        QMediaPlayer * bulletsound;
-        QSet<Qt::Key> keysPressed;
-        QTimer fireRate;
-        // Handles key presses.
-       // void keys();
 };
 
 #endif // PLAYER_H

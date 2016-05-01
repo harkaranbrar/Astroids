@@ -19,16 +19,21 @@ SOURCES += main.cpp\
     bullet.cpp \
     rocks.cpp \
     Score.cpp \
-    Health.cpp
+    Health.cpp \
+    dialog.cpp
 
 HEADERS  += mainwindow.h \
     player.h \
     bullet.h \
     rocks.h \
     Score.h \
-    Health.h
+    Health.h \
+    dialog.h
 
-FORMS    += mainwindow.ui
+
+FORMS    += mainwindow.ui \
+    dialog.ui
+
 
 RESOURCES += \
     resource.qrc

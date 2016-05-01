@@ -75,18 +75,16 @@ rocks::rocks(int size)
     switch (size)
     {
     case 3:
-        //qDebug () << "sent to size";
        setPixmap(QPixmap(":/img/Rock1.png"));
         this->size = 2;
         break;
-    case 2:
-        //qDebug () << "sent to size";
+    case 2:   
        setPixmap(QPixmap(":/img/Rock2.png"));
         break;
     }
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
-    timer->start(50);
+    timer->start(33.33);
 }
 
 //================================== Move Function of Rocks =========================================//
@@ -154,7 +152,7 @@ void rocks::move()
 
              //========== Bullet and rocks removed from scene==============//
 
-                        this->split();
+                      this->split();
                       scene()->removeItem(colliding_items[i]);
                       scene()->removeItem(this);
 
@@ -176,8 +174,7 @@ void rocks::move()
 void rocks::spawn(){
     rocks * rock = new rocks();//create a rock
     scene()->addItem(rock);//added to scene
-
-    //qDebug() << "spawned";
+    qDebug() << "spawned";
 }
 
 void rocks::split()

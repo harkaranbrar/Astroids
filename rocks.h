@@ -1,6 +1,5 @@
 #ifndef ROCKS_H
 #define ROCKS_H
-
 #include <QMainWindow>
 #include <QObject>
 #include <QWidget>
@@ -9,6 +8,8 @@
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
 #include <QMediaPlayer>
+
+
 class rocks :public QObject , public QGraphicsPixmapItem
 {
     //to receive a signals

@@ -12,20 +12,14 @@
 Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
 
-    bulletsound = new QMediaPlayer();
-           bulletsound->setMedia(QUrl("qrc:/sounds/SHOOTIN3.wav"));
+            bulletsound = new QMediaPlayer(); // create a media player
+            bulletsound->setMedia(QUrl("qrc:/sounds/SHOOTIN3.wav")); // set sound from resource file
 
-    xvel = 0;
-    yvel = 0;
-    angle = 0;
-    //setRotation(angle);
-    //setPos(50,50);
+    QTimer * timer = new QTimer(); // create a timer
+    connect(timer,SIGNAL(timeout()),this, SLOT (move())); // connect timer to move slot
+    timer->start(33.33); // start timer
 
-    QTimer * timer = new QTimer();
-    connect(timer,SIGNAL(timeout()),this, SLOT (move()));
-    timer->start(33.33);
-
-    setPixmap(QPixmap(":/img/Ship.png"));
+    setPixmap(QPixmap(":/img/Ship.png")); // set player image
 
 }
 
@@ -69,12 +63,14 @@ void Player::move() {
 
 void Player::keys() {
 
+
+
     foreach(Qt::Key k, keysPressed)
     {
        switch(k)
        {
        case Qt::Key_Up:
-       //case Qt::Key_W:
+       case Qt::Key_W:
        {
            xvel += 0.5*(qSin( 0.0174533*rotation() ));
            yvel += -0.5*(qCos( 0.0174533*rotation() ));
@@ -85,14 +81,14 @@ void Player::keys() {
 
 
        case Qt::Key_Left:
-     //  case Qt::Key_A:
+       case Qt::Key_A:
        {
-            setRotation(rotation() - 15);
+            setRotation(rotation() -15);
             break;
        }
 
        case Qt::Key_Right:
-      // case Qt::Key_D:
+       case Qt::Key_D:
        {
            setRotation(rotation() +15);
            break;
@@ -102,13 +98,12 @@ void Player::keys() {
        case Qt::Key_Space:
        {
            // create a bullet
-           angle = rotation();
+           angle = rotation(); // set angle equal to rotation
            bullet * bull = new bullet(); // create a new bullet
            bull->setPos(x()+20,y()+20); // position of bullet
-           bull->QGraphicsItem::setTransformOriginPoint(10,10);
+           bull->QGraphicsItem::setTransformOriginPoint(10,10); //set the origin of bullet
            bull->setRotation(angle); //set angle of bullet
            scene()->addItem(bull); //added to scene
-           //fireRate.start(33, this);
  //================================== bullet fire sound ========================================//
                 if (bulletsound->state() == QMediaPlayer::PlayingState){
                 bulletsound->setPosition(0);
@@ -117,8 +112,6 @@ void Player::keys() {
                 bulletsound->play();
                 }
  //=============================================================================================//
-           qDebug() << "bullet is created";
-
            break;
            }
         default:
@@ -131,16 +124,12 @@ void Player::keys() {
 }
 
 
-
+//================================== KeypressEvent funtion ========================================//
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
     keysPressed += (Qt::Key)event->key();
-//    QTimer * timer = new QTimer(this);
-//    connect(timer,SIGNAL(timeout()),this,SLOT(keys()));
-
-//    timer->start(50);
-    QTimer::singleShot(10, this, SLOT(keys()));
+    QTimer::singleShot(10, this, SLOT(keys())); //connect the keypress to keys
 
 }
 
@@ -148,8 +137,5 @@ void Player::keyPressEvent(QKeyEvent *event)
 void Player::keyReleaseEvent(QKeyEvent *event)
 {
     keysPressed -= (Qt::Key)event->key();
-//    QTimer * timer = new QTimer(this);
-//    connect(timer,SIGNAL(timeout()),this,SLOT(keys()));
-//    timer->start(50);
-    QTimer::singleShot(10, this, SLOT(keys()));
+    QTimer::singleShot(10, this, SLOT(keys()));//connect the keyrelease to keys
 }
