@@ -18,6 +18,11 @@ extern MainWindow * game; // Global object
 rocks::rocks(QGraphicsItem *parent): QObject(), QGraphicsPixmapItem(parent)
 {
 
+            destroysound = new QMediaPlayer();
+            destroysound->setMedia(QUrl("qrc:/sounds/HIT2.wav"));
+            shiphitsound= new QMediaPlayer();
+            shiphitsound->setMedia(QUrl("qrc:/sounds/SHIPHIT.wav"));
+
 //=================Random number for x ========================//
 
     int random_number = qrand () % 700;
@@ -112,6 +117,15 @@ void rocks::move()
     for (int i = 0, n = colliding_items.size(); i<n; i++){
         if (typeid(*(colliding_items[i])) == typeid (Player))
         {
+
+//                    if (shiphitsound->state() == QMediaPlayer::PlayingState){
+//                    shiphitsound->setPosition(0);
+
+//                    }
+//                    else if (shiphitsound->state() == QMediaPlayer::StoppedState){
+//                    shiphitsound->play();
+
+//                    }
             //==========================Decrease the Health =======================//
             game->health->decrease(); // player health decrease
             scene()->removeItem(this); //remove from the scene
@@ -129,10 +143,19 @@ void rocks::move()
 
                  game->score->Score::increase();
 
+//                    if (destroysound->state() == QMediaPlayer::PlayingState){
+//                      destroysound->setPosition(0);
+//                    }
+//                    else if (destroysound->state() == QMediaPlayer::StoppedState){
+//                      destroysound->play();
+//                    }
+
+
+
              //========== Bullet and rocks removed from scene==============//
 
+                        this->split();
                       scene()->removeItem(colliding_items[i]);
-                      this->split();
                       scene()->removeItem(this);
 
                //========== Bullet and rocks removed from memory ============//
@@ -145,38 +168,7 @@ void rocks::move()
 
 
   }
-  /*
-  //=======Delete the asteroid from upwards=====//
-  if (pos().y() +rect().height() < 0){
-      scene()->removeItem(this);
-      delete this;
-     //qDebug() << "asteroid deleted upwards";
-  }
 
-  //=====Delete the asteroid from downwards=====//
-
-  else if (pos().y() +rect().height() >650)  {
-      scene()->removeItem(this);
-      delete this;
-      //qDebug() << "asteroid deleted downwards";
-  }
-
-  //=====Delete the asteroid from left=====//
-
-  else if (pos().x() +rect().height() < 0)  {
-      scene()->removeItem(this);
-      delete this;
-      //qDebug() << "asteroid deleted left";
-  }
-
-  //=====Delete the asteroid from right=====//
-
-  else if (pos().x() +rect().height() >850)  {
-      scene()->removeItem(this);
-      delete this;
-      //qDebug() << "asteroid deleted right";
-  }
-  */
 }
 
 //================================== Spawn and create a rocks=========================================//
@@ -184,7 +176,8 @@ void rocks::move()
 void rocks::spawn(){
     rocks * rock = new rocks();//create a rock
     scene()->addItem(rock);//added to scene
-    qDebug() << "spawned";
+
+    //qDebug() << "spawned";
 }
 
 void rocks::split()
@@ -215,5 +208,11 @@ void rocks::split()
             scene()->addItem(rocks2);
         break;
     }
+
+    default:
+   {
+       // prevents 430 warnings
+       break;
+   }
     }
 }

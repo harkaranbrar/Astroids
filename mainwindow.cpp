@@ -8,6 +8,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <rocks.h>
+#include <QMediaPlayer>
 
 //==========================Constructor to Create the window==============================//
 MainWindow::MainWindow(QWidget *parent) :
@@ -102,6 +103,16 @@ void MainWindow::StartGame() {
         scene->addItem(rock1);
 
 //================================================================================//
+
+        QMediaPlayer * music = new QMediaPlayer();
+                                    music->setMedia(QUrl("qrc:/sounds/time-was-flying-by.mp3"));
+
+                                    if (music->state() == QMediaPlayer::PlayingState){
+                                        music->setPosition(0);
+                                    }
+                                    else if (music->state() == QMediaPlayer::StoppedState){
+                                        music->play();
+                                    }
 
 }
 

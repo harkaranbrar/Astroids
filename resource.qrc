@@ -10,5 +10,10 @@
         <file>bullet1.png</file>
         <file>Group.png</file>
     </qresource>
-    <qresource prefix="/sounds"/>
+    <qresource prefix="/sounds">
+        <file>HIT2.wav</file>
+        <file>SHIPHIT.wav</file>
+        <file>SHOOTIN3.wav</file>
+        <file>time-was-flying-by.mp3</file>
+    </qresource>
 </RCC>

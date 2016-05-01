@@ -8,6 +8,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
+#include <QMediaPlayer>
 class rocks :public QObject , public QGraphicsPixmapItem
 {
     //to receive a signals
@@ -23,6 +24,8 @@ private:
     int size;
     qreal xvel;
     qreal yvel;
+    QMediaPlayer * destroysound;
+    QMediaPlayer * shiphitsound;
 };
 
 #endif // ROCKS_H

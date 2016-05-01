@@ -12,6 +12,9 @@
 Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
 
+    bulletsound = new QMediaPlayer();
+           bulletsound->setMedia(QUrl("qrc:/sounds/SHOOTIN3.wav"));
+
     xvel = 0;
     yvel = 0;
     angle = 0;
@@ -73,8 +76,8 @@ void Player::keys() {
        case Qt::Key_Up:
        //case Qt::Key_W:
        {
-           xvel += 0.05*(qSin( 0.0174533*rotation() ));
-           yvel += -0.05*(qCos( 0.0174533*rotation() ));
+           xvel += 0.5*(qSin( 0.0174533*rotation() ));
+           yvel += -0.5*(qCos( 0.0174533*rotation() ));
            //qDebug() << "key up";
            break;
        }
@@ -84,14 +87,14 @@ void Player::keys() {
        case Qt::Key_Left:
      //  case Qt::Key_A:
        {
-            setRotation(rotation() - 0.09);
+            setRotation(rotation() - 15);
             break;
        }
 
        case Qt::Key_Right:
       // case Qt::Key_D:
        {
-           setRotation(rotation() +0.09);
+           setRotation(rotation() +15);
            break;
        }
 
@@ -105,7 +108,15 @@ void Player::keys() {
            bull->QGraphicsItem::setTransformOriginPoint(10,10);
            bull->setRotation(angle); //set angle of bullet
            scene()->addItem(bull); //added to scene
-           fireRate.start(333, this);
+           //fireRate.start(33, this);
+ //================================== bullet fire sound ========================================//
+                if (bulletsound->state() == QMediaPlayer::PlayingState){
+                bulletsound->setPosition(0);
+                }
+                else if (bulletsound->state() == QMediaPlayer::StoppedState){
+                bulletsound->play();
+                }
+ //=============================================================================================//
            qDebug() << "bullet is created";
 
            break;
@@ -125,10 +136,11 @@ void Player::keys() {
 void Player::keyPressEvent(QKeyEvent *event)
 {
     keysPressed += (Qt::Key)event->key();
-    QTimer * timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),this,SLOT(keys()));
+//    QTimer * timer = new QTimer(this);
+//    connect(timer,SIGNAL(timeout()),this,SLOT(keys()));
 
-    timer->start(50);
+//    timer->start(50);
+    QTimer::singleShot(10, this, SLOT(keys()));
 
 }
 
@@ -136,7 +148,8 @@ void Player::keyPressEvent(QKeyEvent *event)
 void Player::keyReleaseEvent(QKeyEvent *event)
 {
     keysPressed -= (Qt::Key)event->key();
-    QTimer * timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),this,SLOT(keys()));
-    timer->start(50);
+//    QTimer * timer = new QTimer(this);
+//    connect(timer,SIGNAL(timeout()),this,SLOT(keys()));
+//    timer->start(50);
+    QTimer::singleShot(10, this, SLOT(keys()));
 }

@@ -16,7 +16,6 @@ public:
     bullet(QGraphicsItem * parent=0);
 public slots:
     void move();
-    //test
 
 private:
 

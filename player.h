@@ -10,6 +10,7 @@
 #include <QKeyEvent>
 #include <Qset>
 #include <QTimer>
+#include <QMediaPlayer>
 #include <QGraphicsPixmapItem>
 //#include <qlabel.h>
 
@@ -38,8 +39,9 @@ public slots:
         qreal speed;
         qreal xvel;
         qreal yvel;
+        QMediaPlayer * bulletsound;
         QSet<Qt::Key> keysPressed;
-        QBasicTimer fireRate;
+        QTimer fireRate;
         // Handles key presses.
        // void keys();
 };
