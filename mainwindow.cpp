@@ -11,6 +11,7 @@
 #include <QMediaPlayer>
 #include <QBrush>
 #include <QImage>
+#include <qmovie.h>
 
 //==========================Constructor to Create the window==============================//
 MainWindow::MainWindow(QWidget *parent) :
@@ -128,6 +129,11 @@ void MainWindow::reset()
 void MainWindow::removeItem()
 {
     scene->removeItem(ply); // remove player
+}
+
+void MainWindow::animation()
+{
+    qDebug() << " animation" ;
 }
 
 

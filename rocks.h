@@ -21,6 +21,7 @@ public slots:
     void move();
     void spawn();
     void split();
+    void explosion();
 private:
     int size;
     qreal xvel;

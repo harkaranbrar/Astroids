@@ -5,7 +5,9 @@
 #-------------------------------------------------
 
 QT       += core gui \
-            multimedia
+            multimedia \
+            network widgets
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,7 +22,8 @@ SOURCES += main.cpp\
     rocks.cpp \
     Score.cpp \
     Health.cpp \
-    dialog.cpp
+    dialog.cpp \
+    networkplayer.cpp
 
 HEADERS  += mainwindow.h \
     player.h \
@@ -28,7 +31,8 @@ HEADERS  += mainwindow.h \
     rocks.h \
     Score.h \
     Health.h \
-    dialog.h
+    dialog.h \
+    networkplayer.h
 
 
 FORMS    += mainwindow.ui \

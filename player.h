@@ -9,8 +9,11 @@
 #include <QStyleOption>
 #include <QKeyEvent>
 #include <QTimer>
+#include <QtNetwork>
 #include <QMediaPlayer>
 #include <QGraphicsPixmapItem>
+#include "networkplayer.h"
+#include <QMap>
 //#include <qlabel.h>
 
 
@@ -27,10 +30,15 @@ public:
 public slots:
     void move();
     void keys();
+    void updateNetwork();
+        void parsePackets();
 
  private:
     QMediaPlayer * bulletsound;
     QSet<Qt::Key> keysPressed;
+    QList<QString> multiplayerList;
+            QUdpSocket *writeUdpSocket;
+            QUdpSocket *readUdpSocket;
         qreal angle = 0;
         qreal xvel  = 0;
         qreal yvel  = 0;

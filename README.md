@@ -21,18 +21,18 @@ You can move your player to anywhere on screen it loop around the screen.
 
 
 
-
-
-
 ISSUES 👎 
 
-1. Sounds are not working when stikes with rocks
+1. Game over function is not implement yet.
+2. Decrease the health to - infinty.
+3. issues with main menu.
 
 IN PROGRESS 🎱 
-1. Networking for multiplayer. 
-2. Save file
-3. Good main menu 
-4. Many more 
+1. Networking for multiplayer.
+2. Graphics 
+3. Save file
+4. Good main menu 
+5 . Many more 
 
 
 Team members - Jordan,David,Darin and Harkaran

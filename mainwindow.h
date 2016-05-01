@@ -46,6 +46,7 @@ public slots:
     void StartGame();
     void reset();
     void removeItem();
+    void animation();
 
 private slots:
     void on_PlayButton_clicked();

@@ -9,6 +9,8 @@
         <file>Rock2.png</file>
         <file>bullet1.png</file>
         <file>Group.png</file>
+        <file>animation.gif</file>
+        <file>animation1.gif</file>
     </qresource>
     <qresource prefix="/sounds">
         <file>HIT2.wav</file>

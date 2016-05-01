@@ -15,11 +15,19 @@ Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
             bulletsound = new QMediaPlayer(); // create a media player
             bulletsound->setMedia(QUrl("qrc:/sounds/SHOOTIN3.wav")); // set sound from resource file
 
-    QTimer * timer = new QTimer(); // create a timer
-    connect(timer,SIGNAL(timeout()),this, SLOT (move())); // connect timer to move slot
-    timer->start(33.33); // start timer
 
     setPixmap(QPixmap(":/img/Ship.png")); // set player image
+
+    QTimer * timer = new QTimer();
+        QTimer * netTimer =  new QTimer();
+        writeUdpSocket = new QUdpSocket(this);
+        readUdpSocket = new QUdpSocket(this);
+        readUdpSocket->bind(45454, QUdpSocket::ShareAddress);
+        connect(timer,SIGNAL(timeout()), this, SLOT(updateNetwork()));
+        connect(timer,SIGNAL(timeout()),this, SLOT (move()));
+        connect(readUdpSocket, SIGNAL(readyRead()), this, SLOT(parsePackets()));
+        timer->start(33.33);
+        netTimer->start(100.00);
 
 }
 
@@ -32,6 +40,40 @@ Player::~Player() {
 }
 
 //==============================================================================================//
+
+void Player::updateNetwork() {
+    QByteArray datagram = "Harkaran," + QByteArray::number(x()) + "," + QByteArray::number(y()) + "," + QByteArray::number(rotation());
+    writeUdpSocket->writeDatagram(datagram.data(), datagram.size(),
+                             QHostAddress::Broadcast, 45454);
+}
+
+void Player::parsePackets() {
+
+    while(readUdpSocket->hasPendingDatagrams()) {
+        QByteArray datagram;
+        datagram.resize(readUdpSocket->pendingDatagramSize());
+        readUdpSocket->readDatagram(datagram.data(), datagram.size());
+
+        //Convert into a string, which we will parse.
+        QString data_str = QString(datagram.data());
+
+        //Parse the string to remove the appropriate information.
+        //We put it into an array of size 4, since we know the packet will contain 4 variables that we want.
+        //Then we use the address of the array to place the variables where they need to go
+        QStringList data_arr = data_str.split(',');
+
+        if(!multiplayerList.contains(data_arr.at(0))) {
+            multiplayerList.insert(multiplayerList.size(), data_arr.at(0));
+            NetworkPlayer *newPly = new NetworkPlayer();
+            newPly->setPos(data_arr.at(1).toFloat(), data_arr.at(2).toFloat());
+            newPly->setRotation(data_arr.at(3).toFloat());
+            scene()->addItem(newPly);
+        }
+    }
+
+
+}
+
 
 
 

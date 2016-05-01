@@ -81,10 +81,12 @@ rocks::rocks(int size)
     case 2:   
        setPixmap(QPixmap(":/img/Rock2.png"));
         break;
+
     }
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
     timer->start(33.33);
+    return;
 }
 
 //================================== Move Function of Rocks =========================================//
@@ -116,6 +118,8 @@ void rocks::move()
         if (typeid(*(colliding_items[i])) == typeid (Player))
         {
 
+
+
 //                    if (shiphitsound->state() == QMediaPlayer::PlayingState){
 //                    shiphitsound->setPosition(0);
 
@@ -140,6 +144,9 @@ void rocks::move()
         //==========================Increase the Score =======================//
 
                  game->score->Score::increase();
+                 game->animation();
+                 explosion();
+
 
 //                    if (destroysound->state() == QMediaPlayer::PlayingState){
 //                      destroysound->setPosition(0);
@@ -213,3 +220,17 @@ void rocks::split()
    }
     }
 }
+
+void rocks::explosion()
+{
+    qDebug() <<"attatata";
+
+//                        if (destroysound->state() == QMediaPlayer::PlayingState){
+//                          destroysound->setPosition(0);
+//                        }
+//                        else if (destroysound->state() == QMediaPlayer::StoppedState){
+//                          destroysound->play();
+//                        }
+
+}
+
