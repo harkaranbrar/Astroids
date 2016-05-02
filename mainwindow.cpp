@@ -44,9 +44,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 }
 
 //==========================Start a new game=============================================//
-void MainWindow::StartGame(bool multiplayer) {
+void MainWindow::StartGame(bool m) {
     QString name;
-    if(multiplayer) {
+    if(m) {
 
         QInputDialog msgBox;
                 msgBox.setLabelText("Enter your name: ");
@@ -60,8 +60,8 @@ void MainWindow::StartGame(bool multiplayer) {
 
  //============Create a Player and make it Focusable and added to scene==================//
     ply = new Player();
-    if(multiplayer) {
-        ply->multiplayer=multiplayer;
+    if(m) {
+        ply->multiplayer=m;
         ply->playerName = name;
     }
 

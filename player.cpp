@@ -19,7 +19,7 @@ Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
     setPixmap(QPixmap(":/img/Ship.png")); // set player image
 
     QTimer * timer = new QTimer();
-    if(multiplayer) {
+
         QTimer * netTimer =  new QTimer();
         writeUdpSocket = new QUdpSocket(this);
         readUdpSocket = new QUdpSocket(this);
@@ -27,7 +27,7 @@ Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
         connect(timer,SIGNAL(timeout()), this, SLOT(updateNetwork()));
         connect(readUdpSocket, SIGNAL(readyRead()), this, SLOT(parsePackets()));
         netTimer->start(50.00);
-    }
+
         connect(timer,SIGNAL(timeout()),this, SLOT (move()));
         timer->start(33.33);
 
@@ -44,13 +44,15 @@ Player::~Player() {
 //==============================================================================================//
 
 void Player::updateNetwork() {
+    if(multiplayer) {
     QByteArray datagram = playerName.toLocal8Bit() + "," + QByteArray::number(x()) + "," + QByteArray::number(y()) + "," + QByteArray::number(rotation());
     writeUdpSocket->writeDatagram(datagram.data(), datagram.size(),
                              QHostAddress::Broadcast, 45454);
+    }
 }
 
 void Player::parsePackets() {
-
+    if(multiplayer) {
     while(readUdpSocket->hasPendingDatagrams()) {
         QByteArray datagram;
         datagram.resize(readUdpSocket->pendingDatagramSize());
@@ -64,15 +66,18 @@ void Player::parsePackets() {
         //Then we use the address of the array to place the variables where they need to go
         QStringList data_arr = data_str.split(',');
 
-        if(!multiplayerList.contains(data_arr.at(0))) {
+        if(!multiplayerList.contains(data_arr.at(0)) && data_arr.at(0)!=playerName) {
             multiplayerList.insert(multiplayerList.size(), data_arr.at(0));
             NetworkPlayer *newPly = new NetworkPlayer();
+            newPly->QGraphicsItem::setTransformOriginPoint(30,30); //set origin of player default is (0,0)
+            newPly->setTransformationMode(Qt::SmoothTransformation); // for smooth transformation of player
             newPly->ID = data_arr.at(0);
             newPly->setPos(data_arr.at(1).toFloat(), data_arr.at(2).toFloat());
             newPly->setRotation(data_arr.at(3).toFloat());
             scene()->addItem(newPly);
         }
     }
+   }
 
 
 }

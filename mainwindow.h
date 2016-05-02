@@ -43,7 +43,7 @@ private:
 
 
 public slots:
-    void StartGame(bool multiplayer);
+    void StartGame(bool m);
     void reset();
     void removeItem();
     void animation();
