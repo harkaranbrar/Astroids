@@ -53,7 +53,7 @@
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>300</y>
+      <y>240</y>
       <width>141</width>
       <height>71</height>
      </rect>
@@ -66,7 +66,7 @@ p, li { white-space: pre-wrap; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; font-style:italic; color:#b38484;&quot;&gt;PLAY&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="text">
-     <string>Play</string>
+     <string>Singleplayer</string>
     </property>
    </widget>
    <widget class="QPushButton" name="QuitButton">
@@ -82,6 +82,19 @@ p, li { white-space: pre-wrap; }
      <string>Quit</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="multiplayerButton">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>310</y>
+      <width>141</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Multiplayer</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -89,7 +102,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>888</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuAsteroids_The_Game">

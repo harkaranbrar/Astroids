@@ -44,13 +44,27 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 }
 
 //==========================Start a new game=============================================//
-void MainWindow::StartGame() {
+void MainWindow::StartGame(bool multiplayer) {
+    QString name;
+    if(multiplayer) {
+
+        QInputDialog msgBox;
+                msgBox.setLabelText("Enter your name: ");
+                int ret = msgBox.exec();
+                name = msgBox.textValue();
+    }
+
    //==========================Create a Scene========================//
     scene = new QGraphicsScene(); // create a scene
     scene->setBackgroundBrush(QBrush(QImage(":/img/backg.jpg"))); // set background image
 
  //============Create a Player and make it Focusable and added to scene==================//
-    ply = new Player; // create a player
+    ply = new Player();
+    if(multiplayer) {
+        ply->multiplayer=multiplayer;
+        ply->playerName = name;
+    }
+
     ply->setFlag(QGraphicsItem::ItemIsFocusable); // make player focusable
     ply->QGraphicsItem::setFocus(); // set focus
     scene->addItem(ply); // add player to scene
@@ -121,7 +135,7 @@ void MainWindow::StartGame() {
 void MainWindow::reset()
 {
      music->stop(); // stop music
-     StartGame(); // calls start game
+     StartGame(false); // calls start game
 }
 
 
@@ -143,7 +157,7 @@ void MainWindow::animation()
 // =======================Button to Start the game ====================================//
 void MainWindow::on_PlayButton_clicked()
 {
-    StartGame(); //calls start game
+    StartGame(false); //calls start game
 }
 //==========================Button menu to Quit a new game=============================//
 void MainWindow::on_QuitButton_clicked()
@@ -163,3 +177,8 @@ void MainWindow::on_Close_triggered()
 //=====================================================================================//
 
 
+
+void MainWindow::on_multiplayerButton_clicked()
+{
+    StartGame(true);
+}

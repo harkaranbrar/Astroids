@@ -19,15 +19,17 @@ Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
     setPixmap(QPixmap(":/img/Ship.png")); // set player image
 
     QTimer * timer = new QTimer();
+    if(multiplayer) {
         QTimer * netTimer =  new QTimer();
         writeUdpSocket = new QUdpSocket(this);
         readUdpSocket = new QUdpSocket(this);
         readUdpSocket->bind(45454, QUdpSocket::ShareAddress);
         connect(timer,SIGNAL(timeout()), this, SLOT(updateNetwork()));
-        connect(timer,SIGNAL(timeout()),this, SLOT (move()));
         connect(readUdpSocket, SIGNAL(readyRead()), this, SLOT(parsePackets()));
+        netTimer->start(50.00);
+    }
+        connect(timer,SIGNAL(timeout()),this, SLOT (move()));
         timer->start(33.33);
-        netTimer->start(100.00);
 
 }
 
@@ -42,7 +44,7 @@ Player::~Player() {
 //==============================================================================================//
 
 void Player::updateNetwork() {
-    QByteArray datagram = "Harkaran," + QByteArray::number(x()) + "," + QByteArray::number(y()) + "," + QByteArray::number(rotation());
+    QByteArray datagram = playerName.toLocal8Bit() + "," + QByteArray::number(x()) + "," + QByteArray::number(y()) + "," + QByteArray::number(rotation());
     writeUdpSocket->writeDatagram(datagram.data(), datagram.size(),
                              QHostAddress::Broadcast, 45454);
 }
@@ -65,6 +67,7 @@ void Player::parsePackets() {
         if(!multiplayerList.contains(data_arr.at(0))) {
             multiplayerList.insert(multiplayerList.size(), data_arr.at(0));
             NetworkPlayer *newPly = new NetworkPlayer();
+            newPly->ID = data_arr.at(0);
             newPly->setPos(data_arr.at(1).toFloat(), data_arr.at(2).toFloat());
             newPly->setRotation(data_arr.at(3).toFloat());
             scene()->addItem(newPly);

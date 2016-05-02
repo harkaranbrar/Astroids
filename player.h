@@ -22,6 +22,8 @@ class Player : public QObject, public QGraphicsPixmapItem
 
 Q_OBJECT
 public:
+    QString playerName;
+    bool multiplayer;
     Player(QGraphicsItem * parent=0);
     virtual ~Player();
     void keyPressEvent(QKeyEvent *event);

@@ -11,6 +11,7 @@
 #include <QtWidgets>
 #include <QtNetwork>
 #include <QGraphicsPixmapItem>
+#include <QString>
 
 class NetworkPlayer : public QObject, public QGraphicsPixmapItem
 {
@@ -18,6 +19,7 @@ class NetworkPlayer : public QObject, public QGraphicsPixmapItem
 
 Q_OBJECT
 public:
+    QString ID;
     NetworkPlayer(QGraphicsItem * parent=0);
     virtual ~NetworkPlayer();
      // virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -25,7 +27,6 @@ public:
     //QPainterPath shape() const;
 
 private:
-    QString ID;
     QUdpSocket *udpSocket;
 
 public slots:

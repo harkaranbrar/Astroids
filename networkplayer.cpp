@@ -11,7 +11,6 @@ NetworkPlayer::NetworkPlayer(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
     setPixmap(QPixmap(":/img/Ship.png")); // set player image
 
-    ID = "Harman";
     udpSocket = new QUdpSocket(this);
     udpSocket->bind(45454, QUdpSocket::ShareAddress);
     connect(udpSocket, SIGNAL(readyRead()), this, SLOT(parsePackets()));
