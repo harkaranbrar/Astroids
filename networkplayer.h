@@ -27,6 +27,7 @@ public:
     //QPainterPath shape() const;
 
 private:
+   // QString ID;
     QUdpSocket *udpSocket;
 
 public slots:

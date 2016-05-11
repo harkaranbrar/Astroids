@@ -66,7 +66,7 @@ void Player::parsePackets() {
         //Then we use the address of the array to place the variables where they need to go
         QStringList data_arr = data_str.split(',');
 
-        if(!multiplayerList.contains(data_arr.at(0)) && data_arr.at(0)!=playerName) {
+        if(!multiplayerList.contains(data_arr.at(0)) && data_arr.at(0)!=playerName && data_arr.at(0)!="BULLET_EVENT") {
             multiplayerList.insert(multiplayerList.size(), data_arr.at(0));
             NetworkPlayer *newPly = new NetworkPlayer();
             newPly->QGraphicsItem::setTransformOriginPoint(30,30); //set origin of player default is (0,0)
@@ -75,6 +75,14 @@ void Player::parsePackets() {
             newPly->setPos(data_arr.at(1).toFloat(), data_arr.at(2).toFloat());
             newPly->setRotation(data_arr.at(3).toFloat());
             scene()->addItem(newPly);
+        }
+        if(data_arr.at(0) == "BULLET_EVENT") {
+            angle = data_arr.at(3).toFloat();
+            bullet * bull = new bullet(); // create a new bullet
+            bull->setPos(data_arr.at(1).toFloat()+20,data_arr.at(2).toFloat()+20); // position of bullet
+            bull->QGraphicsItem::setTransformOriginPoint(10,10); //set the origin of bullet
+            bull->setRotation(angle); //set angle of bullet
+            scene()->addItem(bull); //added to scene
         }
     }
    }
@@ -147,8 +155,14 @@ void Player::keys() {
 
        case Qt::Key_Space:
        {
+           if(multiplayer) {
+               QByteArray datagram = "BULLET_EVENT," + QByteArray::number(x()) + "," + QByteArray::number(y()) + "," + QByteArray::number(rotation());
+               writeUdpSocket->writeDatagram(datagram.data(), datagram.size(),
+                                        QHostAddress::Broadcast, 45454);
+           }\
+
            // create a bullet
-           angle = rotation(); // set angle equal to rotation
+           angle = rotation(); // set angle equal to ship's rotation
            bullet * bull = new bullet(); // create a new bullet
            bull->setPos(x()+20,y()+20); // position of bullet
            bull->QGraphicsItem::setTransformOriginPoint(10,10); //set the origin of bullet
